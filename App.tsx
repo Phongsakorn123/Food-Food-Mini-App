@@ -7,6 +7,7 @@ import Toast from 'react-native-toast-message';
 
 import { AppInitializer } from './AppInitializer';
 import { MainNavigator } from './apps/navigation';
+import { LanguageProvider } from './apps/features/auth/config/language';
 import { styles } from './apps/styles';
 import { appStore } from './apps/store';
 
@@ -14,11 +15,13 @@ function App() {
   return (
     <Provider store={appStore}>
       <SafeAreaProvider>
-        <AppInitializer>
-          <StatusBar {...styles.appStatusBar} />
-          <MainNavigator />
-          <Toast />
-        </AppInitializer>
+        <LanguageProvider>
+          <AppInitializer>
+            <StatusBar {...styles.appStatusBar} />
+            <MainNavigator />
+            <Toast />
+          </AppInitializer>
+        </LanguageProvider>
       </SafeAreaProvider>
     </Provider>
   );

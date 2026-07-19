@@ -1,7 +1,7 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { AuthModule } from '../features/auth/screens';
+import { AuthModule } from '../features/auth/screens/login';
 import { CartModule } from '../features/cart/screens/cart-screen';
 import { CartSuccessScreen } from '../features/cart/screens/success-screen';
 import { ProductDetailModule } from '../features/product-detail/screens';

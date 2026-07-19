@@ -32,7 +32,7 @@ export const AppInitializer = ({ children }: AppInitializerProps) => {
 	useEffect(() => {
 		let isMounted = true;
 
-		const hydrateAccessToken = async () => {
+		const hydrateSession = async () => {
 			try {
 				const cachedAccessToken = await AsyncStorage.getItem(
 					ACCESS_TOKEN_STORAGE_KEY,
@@ -47,7 +47,7 @@ export const AppInitializer = ({ children }: AppInitializerProps) => {
 			}
 		};
 
-		void hydrateAccessToken();
+		void hydrateSession();
 
 		return () => {
 			isMounted = false;

@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#f7f3ea',
   },
   card: {
+    position: 'relative',
     borderRadius: 24,
     padding: 24,
     backgroundColor: '#fffdf8',
@@ -24,6 +25,10 @@ export const styles = StyleSheet.create({
     },
     elevation: 4,
   },
+  cardTopRow: {
+		alignItems: 'flex-end',
+		marginBottom: 12,
+	},
   eyebrow: {
     marginBottom: 8,
     color: '#9a3412',
@@ -31,11 +36,13 @@ export const styles = StyleSheet.create({
     fontWeight: '700',
     textTransform: 'uppercase',
     letterSpacing: 1,
+    textAlign: 'center',
   },
   title: {
     color: '#1c1917',
     fontSize: 32,
     fontWeight: '800',
+    textAlign: 'center',
   },
   subtitle: {
     marginTop: 8,
@@ -43,6 +50,7 @@ export const styles = StyleSheet.create({
     color: '#57534e',
     fontSize: 15,
     lineHeight: 22,
+    textAlign: 'center',
   },
   form: {
     gap: 14,

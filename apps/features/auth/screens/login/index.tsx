@@ -1,54 +1,54 @@
-import React, { useState } from 'react';
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import React, { useEffect } from 'react';
 import { Pressable, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import {
-  loginSucceeded,
-} from '../store';
-import type { RootStackParamList } from '../../../navigation/types';
-import { styles } from './style';
-
-type AuthModuleProps = NativeStackScreenProps<RootStackParamList, 'Auth'>;
-
-function createMockAccessToken(username: string) {
-  const normalizedUsername = username.trim().toLowerCase() || 'guest';
-  const randomToken = Math.random().toString(36).slice(2, 10);
-
-  return `mock_access_${normalizedUsername}_${Date.now()}_${randomToken}`;
-}
+import type { AuthModuleProps } from './types';
+import { languageMap } from '../../config/language';
+import { useLanguage } from '../../config/language';
+import { useAuthLoginViewModel } from '../../viewmodels/useAuthLoginViewModel';
+import { styles } from './styles';
+import { LanguageToggle } from '../../compenents/toggleLanguage';
 
 export function AuthModule({ navigation }: AuthModuleProps) {
-  const dispatch = useAppDispatch();
-  const [username, setUsername] = useState('demo_user');
-  const [password, setPassword] = useState('password');
+  const { languageCode } = useLanguage();
+  const prompt = languageMap[languageCode].auth.login;
+  const {
+    handleLogin,
+    isLoginSuccess,
+    password,
+    setPassword,
+    setUsername,
+    username,
+  } = useAuthLoginViewModel();
 
-  const handleLogin = () => {
-    const token = createMockAccessToken(username);
+  useEffect(() => {
+    if (!isLoginSuccess) {
+      return;
+    }
 
-    dispatch(loginSucceeded(token));
     navigation.reset({
       index: 0,
       routes: [{ name: 'MainTabs', params: { screen: 'HomeTab' } }],
     });
-  };
+  }, [isLoginSuccess, navigation]);
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <View style={styles.card}>
-          <Text style={styles.eyebrow}>FoodFood Auth</Text>
-          <Text style={styles.title}>Login</Text>
+          <View style={styles.cardTopRow}>
+            <LanguageToggle />
+          </View>
+          <Text style={styles.eyebrow}>Food Food</Text>
+          <Text style={styles.title}>{prompt.title}</Text>
           <Text style={styles.subtitle}>
-            Sign in to continue to your food dashboard.
+            {prompt.subtitle}
           </Text>
 
           <View style={styles.form}>
             <TextInput
               autoCapitalize="none"
               onChangeText={setUsername}
-              placeholder="Username"
+              placeholder={prompt.usernamePlaceholder}
               placeholderTextColor="#6b7280"
               style={styles.input}
               testID="login-email-input"
@@ -56,7 +56,7 @@ export function AuthModule({ navigation }: AuthModuleProps) {
             />
             <TextInput
               onChangeText={setPassword}
-              placeholder="Password"
+              placeholder={prompt.passwordPlaceholder}
               placeholderTextColor="#6b7280"
               secureTextEntry
               style={styles.input}
@@ -68,7 +68,7 @@ export function AuthModule({ navigation }: AuthModuleProps) {
               onPress={handleLogin}
               style={styles.button}
               testID="login-button">
-              <Text style={styles.buttonText}>เข้าสู่ระบบ</Text>
+              <Text style={styles.buttonText}>{prompt.loginButton}</Text>
             </Pressable>
           </View>
         </View>
