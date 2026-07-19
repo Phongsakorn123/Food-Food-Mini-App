@@ -15,4 +15,13 @@ export const en = {
     subtotalLabel: 'Subtotal',
     reviewSubtitle: 'Review all selected items and adjust quantities in real time.',
   },
+  orderList: {
+    emptyText: 'No completed orders yet.',
+    orderIdLabel: 'Order ID',
+    title: 'Order List',
+    subtitle: 'All completed orders',
+    totalItemsPrefix: 'Items',
+    totalItemsSuffix: '',
+    totalPricePrefix: 'Total',
+  },
 };

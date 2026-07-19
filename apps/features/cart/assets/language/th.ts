@@ -15,4 +15,13 @@ export const th = {
     subtotalLabel: 'ยอดรวมสินค้า',
     reviewSubtitle: 'ตรวจสอบรายการที่เลือกและปรับจำนวนได้แบบเรียลไทม์',
   },
+  orderList: {
+    emptyText: 'ยังไม่มีรายการสั่งซื้อสำเร็จ',
+    orderIdLabel: 'หมายเลขคำสั่งซื้อ',
+    title: 'รายการคำสั่งซื้อ',
+    subtitle: 'รายการที่เคยสั่งสำเร็จทั้งหมด',
+    totalItemsPrefix: 'จำนวน',
+    totalItemsSuffix: 'ชิ้น',
+    totalPricePrefix: 'ราคารวม',
+  },
 };

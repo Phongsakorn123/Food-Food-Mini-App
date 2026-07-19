@@ -7,6 +7,9 @@ import { CartRouteName, CartTabRouteName } from '../router';
 export type CartModuleNavigationProp =
   NativeStackNavigationProp<RootStackParamList>;
 
+export type OrderListModuleNavigationProp =
+  NativeStackNavigationProp<RootStackParamList>;
+
 export type CartModuleRouteProp = RouteProp<
   RootStackParamList,
   CartRouteName.Cart

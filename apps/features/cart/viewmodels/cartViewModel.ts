@@ -9,6 +9,7 @@ import {
   type CartModuleNavigationProp,
   type CartModuleRouteProp,
 } from '../navigation/types';
+import { createOrderId } from '../utils/order';
 import {
   addToCart,
   decreaseCartItem,
@@ -20,10 +21,6 @@ import {
 } from '../../home/store';
 import { FOOD_ITEMS } from '../../home/mocks/foods';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-
-function createOrderId(orderNumber: number, orderIdPrefix: string) {
-  return `${orderIdPrefix}${orderNumber}`;
-}
 
 export function cartViewModel() {
   const { languageCode } = useLanguage();
