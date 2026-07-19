@@ -4,11 +4,21 @@ import {
   AUTH_REDIRECT_ROUTE_NAME,
   AUTH_REDIRECT_TAB_NAME,
 } from '../constants';
+import { languageMap, useLanguage } from '../config/language';
 import { useAppDispatch } from '../../../store/hooks';
 import { loginSucceeded } from '../store';
 import { createMockAccessToken } from '../utils/token';
 
 export function useAuthLoginViewModel() {
+  const { languageCode } = useLanguage();
+  const prompt = languageMap[languageCode].auth.login;
+  const {
+    loginButton,
+    passwordPlaceholder,
+    subtitle,
+    title,
+    usernamePlaceholder,
+  } = prompt;
   const dispatch = useAppDispatch();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -34,6 +44,11 @@ export function useAuthLoginViewModel() {
   return {
     username,
     password,
+    title,
+    subtitle,
+    usernamePlaceholder,
+    passwordPlaceholder,
+    loginButton,
     isLoginSuccess,
     isLoginEnabled,
     redirectRouteName: AUTH_REDIRECT_ROUTE_NAME,
