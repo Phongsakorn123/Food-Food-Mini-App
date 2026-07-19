@@ -1,6 +1,4 @@
 import React from 'react';
-import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import {
   FlatList,
   Image,
@@ -12,13 +10,11 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { FloatingCartButton } from '../../cart/components';
-import { styles } from './style';
+import { FloatingCartButton } from '../../cart/components/FloatingButton';
+import { styles } from './styles';
 import { useHomeViewModel } from '../viewmodels/useHomeViewModel';
-import type { RootStackParamList } from '../../../navigation/types';
 
 export function HomeModule() {
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const {
     addToCart,
     cartCount,
@@ -26,6 +22,8 @@ export function HomeModule() {
     clearSearchQuery,
     emptyText,
     filteredFoods,
+    navigateToProductDetail,
+    sectionTitle,
     searchPlaceholder,
     searchQuery,
     selectedCategory,
@@ -101,7 +99,7 @@ export function HomeModule() {
           ListHeaderComponent={
             <View>
               <View style={styles.sectionHeader}>
-                <Text style={styles.sectionTitle}>Popular Dishes</Text>
+                <Text style={styles.sectionTitle}>{sectionTitle}</Text>
                 <Text style={styles.sectionMeta} testID="results-count">
                   {filteredFoods.length} items
                 </Text>
@@ -111,11 +109,7 @@ export function HomeModule() {
           renderItem={({ item, index }) => (
             <View style={styles.foodCard}>
               <Pressable
-                onPress={() =>
-                  navigation.navigate('ProductDetail', {
-                    foodId: item.id,
-                  })
-                }
+                onPress={() => navigateToProductDetail(item.id)}
                 testID={index === 0 ? 'home-food-card-first' : `home-food-card-${item.id}`}>
                 <Image source={{ uri: item.imageUrl }} style={styles.foodImage} />
                 <Text style={styles.foodName}>{item.name}</Text>

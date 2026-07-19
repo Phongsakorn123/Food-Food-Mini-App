@@ -1,14 +1,18 @@
 import { useMemo, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { useLanguage, type LanguageCode } from '../../auth/config/language';
 import { en as homeEn } from '../assets/language/en';
 import { th as homeTh } from '../assets/language/th';
+import type { RootStackParamList } from '../../../navigation/types';
 import { HOME_CATEGORIES, type HomeCategory } from '../constants';
 import { addToCart as addToCartAction, selectCartCount } from '../store';
 import { FOOD_ITEMS } from '../mocks/foods';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 
 export function useHomeViewModel() {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const homeLanguageMap = useMemo<Record<LanguageCode, typeof homeEn>>(
     () => ({
       en: homeEn,
@@ -37,7 +41,8 @@ export function useHomeViewModel() {
     [],
   );
   const { languageCode } = useLanguage();
-  const { emptyText, searchPlaceholder } = homeLanguageMap[languageCode].home;
+  const { emptyText, searchPlaceholder, sectionTitle } =
+    homeLanguageMap[languageCode].home;
   const dispatch = useAppDispatch();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<HomeCategory>('All');
@@ -71,6 +76,10 @@ export function useHomeViewModel() {
     setSearchQuery('');
   };
 
+  const navigateToProductDetail = (foodId: string) => {
+    navigation.navigate('ProductDetail', { foodId });
+  };
+
   return {
     addToCart,
     cartCount,
@@ -78,6 +87,8 @@ export function useHomeViewModel() {
     filteredFoods,
     clearSearchQuery,
     emptyText,
+    navigateToProductDetail,
+    sectionTitle,
     searchPlaceholder,
     searchQuery,
     selectedCategory,

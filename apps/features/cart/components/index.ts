@@ -1,1 +1,0 @@
-export { FloatingCartButton } from './FloatingCartButton';
