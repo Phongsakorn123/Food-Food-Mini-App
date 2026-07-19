@@ -24,4 +24,10 @@ export const th = {
     totalItemsSuffix: 'ชิ้น',
     totalPricePrefix: 'ราคารวม',
   },
+  success: {
+    backHomeButton: 'กลับไปหน้าหลัก',
+    orderIdLabel: 'หมายเลขคำสั่งซื้อ',
+    subtitle: 'คำสั่งซื้อของคุณได้รับการยืนยันแล้ว ขอบคุณที่สั่งอาหารกับ FoodFood',
+    title: 'สั่งซื้อสำเร็จ',
+  },
 };

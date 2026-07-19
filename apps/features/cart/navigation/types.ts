@@ -15,6 +15,11 @@ export type CartModuleRouteProp = RouteProp<
   CartRouteName.Cart
 >;
 
+export type CartSuccessRouteProp = RouteProp<
+  RootStackParamList,
+  CartRouteName.CartSuccess
+>;
+
 export function resetToCartSuccess(
   navigation: CartModuleNavigationProp,
   orderId: string,
@@ -27,6 +32,18 @@ export function resetToCartSuccess(
         params: { screen: CartTabRouteName.HomeTab },
       },
       { name: CartRouteName.CartSuccess, params: { orderId } },
+    ],
+  });
+}
+
+export function resetToHomeTab(navigation: CartModuleNavigationProp) {
+  navigation.reset({
+    index: 0,
+    routes: [
+      {
+        name: CartRouteName.MainTabs,
+        params: { screen: CartTabRouteName.HomeTab },
+      },
     ],
   });
 }

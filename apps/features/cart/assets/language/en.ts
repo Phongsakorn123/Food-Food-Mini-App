@@ -24,4 +24,10 @@ export const en = {
     totalItemsSuffix: '',
     totalPricePrefix: 'Total',
   },
+  success: {
+    backHomeButton: 'Back to Home',
+    orderIdLabel: 'Order ID',
+    subtitle: 'Your order has been confirmed. Thank you for ordering with FoodFood.',
+    title: 'Order Success',
+  },
 };
