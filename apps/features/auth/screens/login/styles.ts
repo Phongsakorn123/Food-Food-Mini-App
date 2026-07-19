@@ -72,6 +72,9 @@ export const styles = StyleSheet.create({
     paddingVertical: 16,
     backgroundColor: '#d97706',
   },
+  buttonDisabled: {
+    opacity: 0.5,
+  },
   buttonText: {
     color: '#fffdf8',
     fontSize: 16,

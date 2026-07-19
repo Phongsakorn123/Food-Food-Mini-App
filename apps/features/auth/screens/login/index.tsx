@@ -13,8 +13,11 @@ export function AuthModule({ navigation }: AuthModuleProps) {
   const prompt = languageMap[languageCode].auth.login;
   const {
     handleLogin,
+    isLoginEnabled,
     isLoginSuccess,
     password,
+    redirectRouteName,
+    redirectTabName,
     setPassword,
     setUsername,
     username,
@@ -27,9 +30,14 @@ export function AuthModule({ navigation }: AuthModuleProps) {
 
     navigation.reset({
       index: 0,
-      routes: [{ name: 'MainTabs', params: { screen: 'HomeTab' } }],
+      routes: [
+        {
+          name: redirectRouteName,
+          params: { screen: redirectTabName },
+        },
+      ],
     });
-  }, [isLoginSuccess, navigation]);
+  }, [isLoginSuccess, navigation, redirectRouteName, redirectTabName]);
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -65,8 +73,9 @@ export function AuthModule({ navigation }: AuthModuleProps) {
             />
             <Pressable
               accessibilityRole="button"
+              disabled={!isLoginEnabled}
               onPress={handleLogin}
-              style={styles.button}
+              style={[styles.button, !isLoginEnabled && styles.buttonDisabled]}
               testID="login-button">
               <Text style={styles.buttonText}>{prompt.loginButton}</Text>
             </Pressable>
