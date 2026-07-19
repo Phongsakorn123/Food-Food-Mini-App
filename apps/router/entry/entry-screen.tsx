@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-import type { RootStackParamList } from '../navigation/types';
-import { useAccessToken } from '../../AppInitializer';
+import type { RootStackParamList } from '../../navigation/types';
+import { useAccessToken } from '../../../AppInitializer';
 
 type EntryScreenProps = NativeStackScreenProps<RootStackParamList, 'Entry'>;
 

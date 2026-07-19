@@ -7,8 +7,8 @@ import { CartSuccessScreen } from '../features/cart/screens/success-screen';
 import { ProductDetailModule } from '../features/product-detail/screens';
 import { rootStackScreenOptions } from '../navigation/styles';
 import type { RootStackParamList } from '../navigation/types';
-import { EntryScreen } from './entry-screen';
-import { MainTabsNavigator } from './main-tabs-navigator';
+import { EntryScreen } from './entry/entry-screen';
+import { MainTabsNavigator } from './entry/main-tabs-navigator';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 

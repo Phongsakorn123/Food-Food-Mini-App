@@ -2,13 +2,13 @@ import React from 'react';
 import { Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import { OrderListModule } from '../features/cart/screens/order-list-screen';
-import { HomeModule } from '../features/home/screens';
+import { OrderListModule } from '../../features/cart/screens/order-list-screen';
+import { HomeModule } from '../../features/home/screens';
 import {
   getTabBarIconStyle,
   mainTabScreenOptions,
-} from '../navigation/styles';
-import type { MainTabParamList } from '../navigation/types';
+} from '../../navigation/styles';
+import type { MainTabParamList } from '../../navigation/types';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
