@@ -1,10 +1,14 @@
 import { useMemo, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
+import { logout } from '../../auth/store';
 import { useLanguage, type LanguageCode } from '../../auth/config/language';
 import { en as homeEn } from '../assets/language/en';
 import { th as homeTh } from '../assets/language/th';
-import type { HomeModuleNavigationProp } from '../navigation/types';
+import {
+  resetToAuth,
+  type HomeModuleNavigationProp,
+} from '../navigation/types';
 import { HomeRouteName } from '../router';
 import { HOME_CATEGORIES, type HomeCategory } from '../constants';
 import { addToCart as addToCartAction, selectCartCount } from '../store';
@@ -46,6 +50,7 @@ export function homeViewModel() {
     clearButton,
     emptyText,
     itemsSuffix,
+    logoutButton,
     searchPlaceholder,
     sectionTitle,
   } =
@@ -87,6 +92,11 @@ export function homeViewModel() {
     navigation.navigate(HomeRouteName.ProductDetail, { foodId });
   };
 
+  const handleLogout = async () => {
+    await logout(dispatch);
+    resetToAuth(navigation);
+  };
+
   return {
     addToCart,
     view,
@@ -96,7 +106,9 @@ export function homeViewModel() {
     filteredFoods,
     clearSearchQuery,
     emptyText,
+    handleLogout,
     itemsSuffix,
+    logoutButton,
     navigateToProductDetail,
     sectionTitle,
     searchPlaceholder,

@@ -1,8 +1,10 @@
 export {
   authReducer,
   loginSucceeded,
-  logout,
+  logout as logoutAction,
   restoreSession,
   selectAccessToken,
   selectIsAuthenticated,
 } from './authSlice';
+
+export { logout } from './logout';

@@ -10,6 +10,24 @@ export const styles = StyleSheet.create({
     backgroundColor: '#eef4ea',
     paddingHorizontal: 16,
   },
+  topActionRow: {
+    marginTop: 8,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  logoutButton: {
+    minHeight: 38,
+    borderRadius: 12,
+    paddingHorizontal: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#dce7d6',
+  },
+  logoutButtonText: {
+    color: '#2b4d31',
+    fontSize: 12,
+    fontWeight: '700',
+  },
   contentContainer: {
     paddingTop: 18,
     paddingBottom: 32,

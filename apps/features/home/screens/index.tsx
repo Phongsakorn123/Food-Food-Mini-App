@@ -23,7 +23,9 @@ export function HomeModule() {
     clearSearchQuery,
     emptyText,
     filteredFoods,
+    handleLogout,
     itemsSuffix,
+    logoutButton,
     navigateToProductDetail,
     sectionTitle,
     searchPlaceholder,
@@ -36,6 +38,16 @@ export function HomeModule() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
+        <View style={styles.topActionRow}>
+          <Pressable
+            accessibilityRole="button"
+            onPress={handleLogout}
+            style={styles.logoutButton}
+            testID="home-logout-button">
+            <Text style={styles.logoutButtonText}>{logoutButton}</Text>
+          </Pressable>
+        </View>
+
         <View style={styles.searchRow}>
           <TextInput
             onChangeText={setSearchQuery}

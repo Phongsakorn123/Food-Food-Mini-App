@@ -4,6 +4,7 @@ export const en = {
 		clearButton: 'Clear',
 		emptyText: 'no item',
 		itemsSuffix: 'items',
+		logoutButton: 'Logout',
 		sectionTitle: 'Popular Dishes',
 		searchPlaceholder: 'Search food',
 	},
