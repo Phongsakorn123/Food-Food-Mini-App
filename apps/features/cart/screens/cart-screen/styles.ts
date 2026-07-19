@@ -161,4 +161,28 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '800',
   },
+  loadingOverlay: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(22, 35, 23, 0.35)',
+    gap: 12,
+  },
+  loadingSpinner: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    borderWidth: 4,
+    borderColor: 'rgba(255, 255, 255, 0.35)',
+    borderTopColor: '#16a34a',
+  },
+  loadingText: {
+    color: '#ffffff',
+    fontSize: 16,
+    fontWeight: '700',
+  },
 });

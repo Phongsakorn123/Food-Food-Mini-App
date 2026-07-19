@@ -6,6 +6,12 @@ import {
 	selectAccessToken,
 	selectIsAuthenticated,
 } from './apps/features/auth/store';
+import {
+	defaultLanguageCode,
+	getLanguageCodeFromSession,
+	setLanguageCodeToSession,
+	type LanguageCode,
+} from './apps/features/auth/config/language';
 import { useAppDispatch, useAppSelector } from './apps/store/hooks';
 
 const ACCESS_TOKEN_STORAGE_KEY = 'foodfood.accessToken';
@@ -14,6 +20,8 @@ type AppInitializerValue = {
 	accessToken: string | null;
 	isAuthenticated: boolean;
 	hasAccessToken: boolean;
+	languageCode: LanguageCode;
+	setLanguageCode: (languageCode: LanguageCode) => void;
 	isReady: boolean;
 };
 
@@ -27,6 +35,9 @@ export const AppInitializer = ({ children }: AppInitializerProps) => {
 	const dispatch = useAppDispatch();
 	const accessToken = useAppSelector(selectAccessToken);
 	const isAuthenticated = useAppSelector(selectIsAuthenticated);
+	const [languageCode, setLanguageCode] = useState<LanguageCode>(
+		defaultLanguageCode,
+	);
 	const [isReady, setIsReady] = useState(false);
 
 	useEffect(() => {
@@ -37,8 +48,10 @@ export const AppInitializer = ({ children }: AppInitializerProps) => {
 				const cachedAccessToken = await AsyncStorage.getItem(
 					ACCESS_TOKEN_STORAGE_KEY,
 				);
+				const cachedLanguageCode = await getLanguageCodeFromSession();
 				if (isMounted) {
 					dispatch(restoreSession(cachedAccessToken));
+					setLanguageCode(cachedLanguageCode);
 				}
 			} finally {
 				if (isMounted) {
@@ -71,10 +84,24 @@ export const AppInitializer = ({ children }: AppInitializerProps) => {
 		void persistAccessToken();
 	}, [accessToken, isReady]);
 
+	useEffect(() => {
+		if (!isReady) {
+			return;
+		}
+
+		const persistLanguage = async () => {
+			await setLanguageCodeToSession(languageCode);
+		};
+
+		void persistLanguage();
+	}, [isReady, languageCode]);
+
 	const value: AppInitializerValue = {
 		accessToken,
 		isAuthenticated,
 		hasAccessToken: accessToken !== null,
+		languageCode,
+		setLanguageCode,
 		isReady,
 	};
 
@@ -113,4 +140,13 @@ export function useIsAuthenticated() {
 
 export function useAppInitializerReady() {
 	return useAppInitializer().isReady;
+}
+
+export function useLanguage() {
+	const { languageCode, setLanguageCode } = useAppInitializer();
+
+	return {
+		languageCode,
+		setLanguageCode,
+	};
 }

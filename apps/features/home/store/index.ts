@@ -4,6 +4,7 @@ export {
 	decreaseCartItem,
 	placeOrder,
 	removeCartItem,
+	restoreOrderHistory,
 	selectCartCount,
 	selectCartItems,
 	selectOrderById,

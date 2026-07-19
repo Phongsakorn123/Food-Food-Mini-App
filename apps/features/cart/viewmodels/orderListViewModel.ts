@@ -7,10 +7,12 @@ import { th as cartTh } from '../assets/language/th';
 import { FOOD_ITEMS } from '../../home/mocks/foods';
 import { selectOrderHistory } from '../../home/store';
 import type { OrderListModuleNavigationProp } from '../navigation/types';
+import { useOrderHistoryPersistence } from '../store/useOrderHistoryPersistence';
 import { useAppSelector } from '../../../store/hooks';
 import { CartRouteName } from '../router';
 
 export function orderListViewModel() {
+  useOrderHistoryPersistence();
   const navigation = useNavigation<OrderListModuleNavigationProp>();
   const { languageCode } = useLanguage();
   const orderListLanguageMap = useMemo<Record<LanguageCode, typeof cartEn>>(

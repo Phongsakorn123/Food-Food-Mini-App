@@ -10,6 +10,7 @@ import {
   type CartModuleRouteProp,
 } from '../navigation/types';
 import { injectContainer } from '../di/injectContainer';
+import { useOrderHistoryPersistence } from '../store/useOrderHistoryPersistence';
 import {
   addToCart,
   decreaseCartItem,
@@ -23,6 +24,7 @@ import { FOOD_ITEMS } from '../../home/mocks/foods';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 
 export function cartViewModel() {
+  useOrderHistoryPersistence();
   const { languageCode } = useLanguage();
   const navigation = useNavigation<CartModuleNavigationProp>();
   const route = useRoute<CartModuleRouteProp>();

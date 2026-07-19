@@ -24,6 +24,14 @@ type PlaceOrderPayload = {
   orderId: string;
 };
 
+type RestoreOrderHistoryPayload = {
+  orders: Array<{
+    id: string;
+    items: Record<string, number>;
+    createdAt: number;
+  }>;
+};
+
 const initialState: CartState = {
   items: {},
   orders: [],
@@ -67,10 +75,22 @@ const cartSlice = createSlice({
 
       state.items = {};
     },
+    restoreOrderHistory: (
+      state,
+      action: PayloadAction<RestoreOrderHistoryPayload>,
+    ) => {
+      state.orders = action.payload.orders;
+    },
   },
 });
 
-export const { addToCart, decreaseCartItem, removeCartItem, placeOrder } =
+export const {
+  addToCart,
+  decreaseCartItem,
+  removeCartItem,
+  placeOrder,
+  restoreOrderHistory,
+} =
   cartSlice.actions;
 export const cartReducer = cartSlice.reducer;
 
