@@ -1,11 +1,18 @@
-import React from 'react';
-import { Pressable, ScrollView, Text, View } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import {
+  Animated,
+  Easing,
+  Pressable,
+  ScrollView,
+  Text,
+  View,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
 import { cartViewModel } from '../../viewmodels/cartViewModel';
 import { styles } from './styles';
 
 export function CartModule() {
+  const spinValue = useRef(new Animated.Value(0)).current;
   const {
     backButton,
     cartTitle,
@@ -19,6 +26,7 @@ export function CartModule() {
     handleCheckout,
     handleGoBack,
     increaseItem,
+    isCheckoutLoading,
     isOrderDetailMode,
     items,
     orderCartTitle,
@@ -33,6 +41,35 @@ export function CartModule() {
     subtotalLabel,
   } =
     cartViewModel();
+
+  useEffect(() => {
+    if (!isCheckoutLoading) {
+      spinValue.stopAnimation();
+      spinValue.setValue(0);
+
+      return;
+    }
+
+    const spinnerAnimation = Animated.loop(
+      Animated.timing(spinValue, {
+        toValue: 1,
+        duration: 800,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+    );
+
+    spinnerAnimation.start();
+
+    return () => {
+      spinnerAnimation.stop();
+    };
+  }, [isCheckoutLoading, spinValue]);
+
+  const spin = spinValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '360deg'],
+  });
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -133,11 +170,28 @@ export function CartModule() {
           <Pressable
             onPress={handleCheckout}
             style={styles.checkoutButton}
+            disabled={isCheckoutLoading}
             testID="cart-success-button">
-            <Text style={styles.checkoutButtonText}>{checkoutButton}</Text>
+            <Text style={styles.checkoutButtonText}>
+              {isCheckoutLoading ? `${checkoutButton}...` : checkoutButton}
+            </Text>
           </Pressable>
         ) : null}
       </ScrollView>
+
+      {isCheckoutLoading ? (
+        <View style={styles.loadingOverlay} testID="cart-checkout-loading-overlay">
+          <Animated.View
+            style={[
+              styles.loadingSpinner,
+              {
+                transform: [{ rotate: spin }],
+              },
+            ]}
+          />
+          <Text style={styles.loadingText}>{checkoutButton}...</Text>
+        </View>
+      ) : null}
     </SafeAreaView>
   );
 }

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Pressable, ScrollView, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
 import { orderListViewModel } from '../../viewmodels/orderListViewModel';
 import { styles } from './style';
 

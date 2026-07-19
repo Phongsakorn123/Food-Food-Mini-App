@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { useLanguage, type LanguageCode } from '../../auth/config/language';
@@ -53,6 +53,7 @@ export function cartViewModel() {
   const isOrderDetailMode = Boolean(selectedOrderId);
   const dispatch = useAppDispatch();
   const checkoutUsecase = injectContainer.usecases.checkoutUsecase;
+  const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
   const orderHistory = useAppSelector(selectOrderHistory);
   const nextOrderNumber = orderHistory.length + 1;
   const cartItems = useAppSelector(state => {
@@ -92,11 +93,31 @@ export function cartViewModel() {
     navigation.goBack();
   };
 
+  const callCheckoutService = async () => {
+    try {
+      setIsCheckoutLoading(true);
+
+      const { orderId } = await checkoutUsecase({
+        nextOrderNumber,
+        orderIdPrefix,
+      });
+
+      return orderId;
+    } catch (error) {
+      console.error('Checkout failed', error);
+
+      return null;
+    } finally {
+      setIsCheckoutLoading(false);
+    }
+  };
+
   const handleCheckout = async () => {
-    const { orderId } = await checkoutUsecase({
-      nextOrderNumber,
-      orderIdPrefix,
-    });
+    const orderId = await callCheckoutService();
+
+    if (!orderId) {
+      return;
+    }
 
     dispatch(placeOrder({ orderId }));
     resetToCartSuccess(navigation, orderId);
@@ -137,6 +158,7 @@ export function cartViewModel() {
     grandTotal,
     grandTotalLabel,
     grandTotalWithFee,
+    isCheckoutLoading,
     handleCheckout,
     handleGoBack,
     increaseItem,
