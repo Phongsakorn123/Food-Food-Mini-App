@@ -102,7 +102,7 @@ test('renders correctly', async () => {
   expect(getLastPressableByTestId(renderer!, 'floating-cart-button')).toBeTruthy();
   expect(getLastByTestId(renderer!, 'floating-cart-badge').findByType(Text).props.children).toBe(0);
   expect(renderer!.root.findByProps({testID: 'results-count'}).props.children).toEqual([
-    24,
+    30,
     ' items',
   ]);
 

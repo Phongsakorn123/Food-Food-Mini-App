@@ -23,7 +23,10 @@ export function HomeModule() {
     addToCart,
     cartCount,
     categories,
+    clearSearchQuery,
+    emptyText,
     filteredFoods,
+    searchPlaceholder,
     searchQuery,
     selectedCategory,
     setSearchQuery,
@@ -33,67 +36,70 @@ export function HomeModule() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
+        <View style={styles.searchRow}>
+          <TextInput
+            onChangeText={setSearchQuery}
+            placeholder={searchPlaceholder}
+            placeholderTextColor="#6b7280"
+            style={styles.searchInput}
+            testID="home-search-input"
+            value={searchQuery}
+          />
+          {searchQuery.length > 0 ? (
+            <Pressable
+              accessibilityRole="button"
+              onPress={clearSearchQuery}
+              style={styles.clearSearchButton}
+              testID="home-clear-search-button">
+              <Text style={styles.clearSearchButtonText}>Clear</Text>
+            </Pressable>
+          ) : null}
+        </View>
+
+        <ScrollView
+          contentContainerStyle={styles.categoryRow}
+          horizontal
+          style={styles.categoryScroll}
+          showsHorizontalScrollIndicator={false}>
+          {categories.map(category => {
+            const isSelected = category === selectedCategory;
+
+            return (
+              <Pressable
+                key={category}
+                onPress={() => setSelectedCategory(category)}
+                style={[
+                  styles.categoryChip,
+                  isSelected ? styles.categoryChipActive : null,
+                ]}
+                testID={`category-${category}`}>
+                <Text
+                  style={[
+                    styles.categoryText,
+                    isSelected ? styles.categoryTextActive : null,
+                  ]}>
+                  {category}
+                </Text>
+              </Pressable>
+            );
+          })}
+        </ScrollView>
+
         <FlatList
           contentContainerStyle={styles.contentContainer}
           data={filteredFoods}
           keyExtractor={item => item.id}
           numColumns={2}
           columnWrapperStyle={styles.gridRow}
+          ListEmptyComponent={
+            <View style={styles.emptyStateContainer}>
+              <Text style={styles.emptyStateText} testID="home-empty-text">
+                {emptyText}
+              </Text>
+            </View>
+          }
           ListHeaderComponent={
             <View>
-              <View style={styles.heroCard}>
-                <View>
-                  <Text style={styles.eyebrow}>Home Screen</Text>
-                  <Text style={styles.title}>Discover today&apos;s menu</Text>
-                  <Text style={styles.subtitle}>
-                    Search, filter by category, and add your favorite dishes to cart.
-                  </Text>
-                </View>
-                <View style={styles.cartBadge}>
-                  <Text style={styles.cartLabel}>Cart</Text>
-                  <Text style={styles.cartValue} testID="cart-count">
-                    {cartCount}
-                  </Text>
-                </View>
-              </View>
-
-              <TextInput
-                onChangeText={setSearchQuery}
-                placeholder="Search food"
-                placeholderTextColor="#6b7280"
-                style={styles.searchInput}
-                testID="home-search-input"
-                value={searchQuery}
-              />
-
-              <ScrollView
-                contentContainerStyle={styles.categoryRow}
-                horizontal
-                showsHorizontalScrollIndicator={false}>
-                {categories.map(category => {
-                  const isSelected = category === selectedCategory;
-
-                  return (
-                    <Pressable
-                      key={category}
-                      onPress={() => setSelectedCategory(category)}
-                      style={[
-                        styles.categoryChip,
-                        isSelected ? styles.categoryChipActive : null,
-                      ]}
-                      testID={`category-${category}`}>
-                      <Text
-                        style={[
-                          styles.categoryText,
-                          isSelected ? styles.categoryTextActive : null,
-                        ]}>
-                        {category}
-                      </Text>
-                    </Pressable>
-                  );
-                })}
-              </ScrollView>
-
               <View style={styles.sectionHeader}>
                 <Text style={styles.sectionTitle}>Popular Dishes</Text>
                 <Text style={styles.sectionMeta} testID="results-count">

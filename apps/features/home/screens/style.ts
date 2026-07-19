@@ -8,9 +8,9 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#eef4ea',
+    paddingHorizontal: 16,
   },
   contentContainer: {
-    paddingHorizontal: 20,
     paddingTop: 18,
     paddingBottom: 32,
   },
@@ -69,6 +69,7 @@ export const styles = StyleSheet.create({
     fontWeight: '800',
   },
   searchInput: {
+    flex: 1,
     borderWidth: 1,
     borderColor: '#d6e2cf',
     borderRadius: 16,
@@ -78,12 +79,41 @@ export const styles = StyleSheet.create({
     color: '#162317',
     fontSize: 16,
   },
+  searchRow: {
+    marginTop: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  clearSearchButton: {
+    minHeight: 44,
+    borderRadius: 12,
+    paddingHorizontal: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#d6e2cf',
+  },
+  clearSearchButtonText: {
+    color: '#2b4d31',
+    fontSize: 13,
+    fontWeight: '700',
+  },
+  categoryScroll: {
+    marginTop: 12,
+    minHeight: 52,
+    flexGrow: 0,
+  },
   categoryRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: 10,
-    paddingVertical: 16,
+    paddingVertical: 6,
     paddingRight: 8,
   },
   categoryChip: {
+    flexShrink: 0,
+    minHeight: 40,
+    justifyContent: 'center',
     borderRadius: 999,
     paddingHorizontal: 16,
     paddingVertical: 10,
@@ -114,6 +144,17 @@ export const styles = StyleSheet.create({
   sectionMeta: {
     color: '#5b6d5d',
     fontSize: 13,
+    fontWeight: '600',
+  },
+  emptyStateContainer: {
+    borderRadius: 16,
+    paddingVertical: 24,
+    alignItems: 'center',
+    backgroundColor: '#ffffff',
+  },
+  emptyStateText: {
+    color: '#5b6d5d',
+    fontSize: 15,
     fontWeight: '600',
   },
   gridRow: {
