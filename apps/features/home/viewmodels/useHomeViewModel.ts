@@ -41,7 +41,14 @@ export function useHomeViewModel() {
     [],
   );
   const { languageCode } = useLanguage();
-  const { emptyText, searchPlaceholder, sectionTitle } =
+  const {
+    addToCartButton,
+    clearButton,
+    emptyText,
+    itemsSuffix,
+    searchPlaceholder,
+    sectionTitle,
+  } =
     homeLanguageMap[languageCode].home;
   const dispatch = useAppDispatch();
   const [searchQuery, setSearchQuery] = useState('');
@@ -82,11 +89,14 @@ export function useHomeViewModel() {
 
   return {
     addToCart,
+    addToCartButton,
     cartCount,
     categories: HOME_CATEGORIES,
+    clearButton,
     filteredFoods,
     clearSearchQuery,
     emptyText,
+    itemsSuffix,
     navigateToProductDetail,
     sectionTitle,
     searchPlaceholder,

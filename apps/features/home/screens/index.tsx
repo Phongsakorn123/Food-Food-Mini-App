@@ -17,11 +17,14 @@ import { useHomeViewModel } from '../viewmodels/useHomeViewModel';
 export function HomeModule() {
   const {
     addToCart,
+    addToCartButton,
     cartCount,
     categories,
+    clearButton,
     clearSearchQuery,
     emptyText,
     filteredFoods,
+    itemsSuffix,
     navigateToProductDetail,
     sectionTitle,
     searchPlaceholder,
@@ -49,7 +52,7 @@ export function HomeModule() {
               onPress={clearSearchQuery}
               style={styles.clearSearchButton}
               testID="home-clear-search-button">
-              <Text style={styles.clearSearchButtonText}>Clear</Text>
+              <Text style={styles.clearSearchButtonText}>{clearButton}</Text>
             </Pressable>
           ) : null}
         </View>
@@ -101,7 +104,7 @@ export function HomeModule() {
               <View style={styles.sectionHeader}>
                 <Text style={styles.sectionTitle}>{sectionTitle}</Text>
                 <Text style={styles.sectionMeta} testID="results-count">
-                  {filteredFoods.length} items
+                  {filteredFoods.length} {itemsSuffix}
                 </Text>
               </View>
             </View>
@@ -119,7 +122,7 @@ export function HomeModule() {
                 onPress={() => addToCart(item.id)}
                 style={styles.addButton}
                 testID={index === 0 ? 'add-to-cart-first' : `add-to-cart-${item.id}`}>
-                <Text style={styles.addButtonText}>Add to Cart</Text>
+                <Text style={styles.addButtonText}>{addToCartButton}</Text>
               </Pressable>
             </View>
           )}
