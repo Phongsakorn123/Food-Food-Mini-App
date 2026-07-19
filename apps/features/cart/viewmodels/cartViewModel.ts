@@ -9,7 +9,7 @@ import {
   type CartModuleNavigationProp,
   type CartModuleRouteProp,
 } from '../navigation/types';
-import { createOrderId } from '../utils/order';
+import { injectContainer } from '../di/injectContainer';
 import {
   addToCart,
   decreaseCartItem,
@@ -52,6 +52,7 @@ export function cartViewModel() {
   const selectedOrderId = route.params?.orderId;
   const isOrderDetailMode = Boolean(selectedOrderId);
   const dispatch = useAppDispatch();
+  const checkoutUsecase = injectContainer.usecases.checkoutUsecase;
   const orderHistory = useAppSelector(selectOrderHistory);
   const nextOrderNumber = orderHistory.length + 1;
   const cartItems = useAppSelector(state => {
@@ -91,8 +92,11 @@ export function cartViewModel() {
     navigation.goBack();
   };
 
-  const handleCheckout = () => {
-    const orderId = createOrderId(nextOrderNumber, orderIdPrefix);
+  const handleCheckout = async () => {
+    const { orderId } = await checkoutUsecase({
+      nextOrderNumber,
+      orderIdPrefix,
+    });
 
     dispatch(placeOrder({ orderId }));
     resetToCartSuccess(navigation, orderId);
