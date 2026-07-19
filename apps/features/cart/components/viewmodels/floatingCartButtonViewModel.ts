@@ -7,7 +7,7 @@ import { selectCartCount } from '../../../home/store';
 import type { RootStackParamList } from '../../../../navigation/types';
 import { useAppSelector } from '../../../../store/hooks';
 
-export function useFloatingCartButtonViewModel() {
+export function floatingCartButtonViewModel() {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const insets = useSafeAreaInsets();

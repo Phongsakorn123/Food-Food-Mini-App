@@ -1,11 +1,11 @@
 import React from 'react';
 import { Pressable, Text, View } from 'react-native';
 
-import { useFloatingCartButtonViewModel } from '../../viewmodels/useFloatingCartButtonViewModel';
+import { floatingCartButtonViewModel } from '../../viewmodels/floatingCartButtonViewModel';
 import { getFloatingButtonPositionStyle, styles } from './styles';
 
 export function FloatingCartButton() {
-  const { cartCount, handlePress, insets } = useFloatingCartButtonViewModel();
+  const { cartCount, handlePress, insets } = floatingCartButtonViewModel();
 
   return (
     <Pressable
