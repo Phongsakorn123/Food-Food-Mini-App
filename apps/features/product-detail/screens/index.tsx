@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { FloatingCartButton } from '../../cart/components/FloatingButton';
+import { FloatingCartButton } from '../../cart/components/screen/floatingButton';
 import { useProductDetailViewModel } from '../viewmodels/useProductDetailViewModel';
 import { styles } from './style';
 

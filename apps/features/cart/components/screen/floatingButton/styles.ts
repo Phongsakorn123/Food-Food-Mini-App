@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import type { EdgeInsets } from 'react-native-safe-area-context';
 
 export const styles = StyleSheet.create({
   button: {
@@ -41,3 +42,10 @@ export const styles = StyleSheet.create({
     fontWeight: '800',
   },
 });
+
+export function getFloatingButtonPositionStyle(insets: EdgeInsets) {
+  return {
+    bottom: 24 + insets.bottom,
+    left: 20 + insets.left,
+  };
+}

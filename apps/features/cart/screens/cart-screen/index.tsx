@@ -1,54 +1,59 @@
 import React from 'react';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import type { RouteProp } from '@react-navigation/native';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import type { RootStackParamList } from '../../../../navigation/types';
-import { placeOrder, selectOrderHistory } from '../../../home/store';
-import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
-import { useCartViewModel } from '../../viewmodels/useCartViewModel';
-import { styles } from './style';
-
-function createOrderId(orderNumber: number) {
-  return `Order-${orderNumber}`;
-}
+import { cartViewModel } from '../../viewmodels/cartViewModel';
+import { styles } from './styles';
 
 export function CartModule() {
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const route = useRoute<RouteProp<RootStackParamList, 'Cart'>>();
-  const dispatch = useAppDispatch();
-  const orderHistory = useAppSelector(selectOrderHistory);
-  const nextOrderNumber = orderHistory.length + 1;
-  const selectedOrderId = route.params?.orderId;
-  const isOrderDetailMode = Boolean(selectedOrderId);
-  const { decreaseItem, grandTotal, increaseItem, items, removeItem } =
-    useCartViewModel(selectedOrderId);
-  const subtotal = grandTotal;
-  const deliveryFee = subtotal > 0 ? 30 : 0;
-  const grandTotalWithFee = subtotal + deliveryFee;
+  const {
+    backButton,
+    cartTitle,
+    checkoutButton,
+    decreaseItem,
+    deliveryFeeLabel,
+    deliveryFee,
+    emptyText,
+    grandTotalLabel,
+    grandTotalWithFee,
+    handleCheckout,
+    handleGoBack,
+    increaseItem,
+    isOrderDetailMode,
+    items,
+    orderCartTitle,
+    orderDetailSubtitle,
+    orderIdLabel,
+    quantityDecrease,
+    quantityIncrease,
+    reviewSubtitle,
+    removeItem,
+    selectedOrderId,
+    subtotal,
+    subtotalLabel,
+  } =
+    cartViewModel();
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <Pressable
-          onPress={() => navigation.goBack()}
+          onPress={handleGoBack}
           style={styles.backButton}
           testID="cart-back-button">
-          <Text style={styles.backButtonText}>Back</Text>
+          <Text style={styles.backButtonText}>{backButton}</Text>
         </Pressable>
 
-        <Text style={styles.title}>{isOrderDetailMode ? 'Order Cart' : 'Cart'}</Text>
+        <Text style={styles.title}>{isOrderDetailMode ? orderCartTitle : cartTitle}</Text>
         <Text style={styles.subtitle}>
           {isOrderDetailMode
-            ? 'รายละเอียดรายการที่เคยสั่งสำเร็จ'
-            : 'Review all selected items and adjust quantities in real time.'}
+            ? orderDetailSubtitle
+            : reviewSubtitle}
         </Text>
 
         {isOrderDetailMode && selectedOrderId ? (
           <View>
-            <Text style={styles.orderIdLabel}>หมายเลขคำสั่งซื้อ</Text>
+            <Text style={styles.orderIdLabel}>{orderIdLabel}</Text>
             <Text style={styles.orderIdValue} testID="cart-order-id-value">
               {selectedOrderId}
             </Text>
@@ -58,7 +63,7 @@ export function CartModule() {
         {items.length === 0 ? (
           <View style={styles.emptyCard}>
             <Text style={styles.emptyText} testID="cart-empty-text">
-              Your cart is empty.
+              {emptyText}
             </Text>
           </View>
         ) : (
@@ -91,7 +96,7 @@ export function CartModule() {
                         ? 'cart-decrease-first'
                         : `cart-decrease-${item.id}`
                     }>
-                    <Text style={styles.quantityButtonText}>-</Text>
+                    <Text style={styles.quantityButtonText}>{quantityDecrease}</Text>
                   </Pressable>
                   <Text
                     style={styles.quantityValue}
@@ -104,7 +109,7 @@ export function CartModule() {
                     onPress={() => increaseItem(item.id)}
                     style={styles.quantityButton}
                     disabled={isOrderDetailMode}>
-                    <Text style={styles.quantityButtonText}>+</Text>
+                    <Text style={styles.quantityButtonText}>{quantityIncrease}</Text>
                   </Pressable>
                 </View>
                 <Text style={styles.totalPrice}>฿{item.totalPrice}</Text>
@@ -114,11 +119,11 @@ export function CartModule() {
         )}
 
         <View style={styles.summaryCard}>
-          <Text style={styles.summaryLabel}>Subtotal</Text>
+          <Text style={styles.summaryLabel}>{subtotalLabel}</Text>
           <Text style={styles.summaryValue}>฿{subtotal}</Text>
-          <Text style={styles.summaryLabel}>Delivery Fee</Text>
+          <Text style={styles.summaryLabel}>{deliveryFeeLabel}</Text>
           <Text style={styles.summaryValue}>฿{deliveryFee}</Text>
-          <Text style={styles.summaryLabel}>Grand Total</Text>
+          <Text style={styles.summaryLabel}>{grandTotalLabel}</Text>
           <Text style={styles.summaryValue} testID="cart-grand-total">
             ฿{grandTotalWithFee}
           </Text>
@@ -126,21 +131,10 @@ export function CartModule() {
 
         {!isOrderDetailMode ? (
           <Pressable
-            onPress={() => {
-              const orderId = createOrderId(nextOrderNumber);
-
-              dispatch(placeOrder({ orderId }));
-              navigation.reset({
-                index: 1,
-                routes: [
-                  { name: 'MainTabs', params: { screen: 'HomeTab' } },
-                  { name: 'CartSuccess', params: { orderId } },
-                ],
-              });
-            }}
+            onPress={handleCheckout}
             style={styles.checkoutButton}
             testID="cart-success-button">
-            <Text style={styles.checkoutButtonText}>สั่งซื้อ</Text>
+            <Text style={styles.checkoutButtonText}>{checkoutButton}</Text>
           </Pressable>
         ) : null}
       </ScrollView>

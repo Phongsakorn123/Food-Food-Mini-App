@@ -1,18 +1,18 @@
 import { useMemo, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { useLanguage, type LanguageCode } from '../../auth/config/language';
 import { en as homeEn } from '../assets/language/en';
 import { th as homeTh } from '../assets/language/th';
-import type { RootStackParamList } from '../../../navigation/types';
+import type { HomeModuleNavigationProp } from '../navigation/types';
+import { HomeRouteName } from '../router';
 import { HOME_CATEGORIES, type HomeCategory } from '../constants';
 import { addToCart as addToCartAction, selectCartCount } from '../store';
 import { FOOD_ITEMS } from '../mocks/foods';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 
 export function useHomeViewModel() {
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const navigation = useNavigation<HomeModuleNavigationProp>();
   const homeLanguageMap = useMemo<Record<LanguageCode, typeof homeEn>>(
     () => ({
       en: homeEn,
@@ -84,7 +84,7 @@ export function useHomeViewModel() {
   };
 
   const navigateToProductDetail = (foodId: string) => {
-    navigation.navigate('ProductDetail', { foodId });
+    navigation.navigate(HomeRouteName.ProductDetail, { foodId });
   };
 
   return {

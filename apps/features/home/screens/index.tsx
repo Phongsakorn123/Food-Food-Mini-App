@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { FloatingCartButton } from '../../cart/components/FloatingButton';
+import { FloatingCartButton } from '../../cart/components/screen/floatingButton';
 import { styles } from './styles';
 import { useHomeViewModel } from '../viewmodels/useHomeViewModel';
 
