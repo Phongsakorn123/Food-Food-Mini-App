@@ -1,0 +1,1 @@
+export const CART_MIN_QUANTITY = 0;

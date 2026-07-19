@@ -40,9 +40,17 @@ class ReactNativeDelegate: RCTDefaultReactNativeFactoryDelegate {
 
   override func bundleURL() -> URL? {
 #if DEBUG
-    RCTBundleURLProvider.sharedSettings().jsBundleURL(forBundleRoot: "index")
+    let bundleURLProvider = RCTBundleURLProvider.sharedSettings()
+    let currentHost = bundleURLProvider.packagerServerHost()
+      .split(separator: ":")
+      .first
+      .map(String.init) ?? "localhost"
+
+    bundleURLProvider.jsLocation = "\(currentHost):7071"
+
+    return bundleURLProvider.jsBundleURL(forBundleRoot: "index")
 #else
-    Bundle.main.url(forResource: "main", withExtension: "jsbundle")
+    return Bundle.main.url(forResource: "main", withExtension: "jsbundle")
 #endif
   }
 }

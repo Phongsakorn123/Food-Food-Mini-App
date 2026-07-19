@@ -1,0 +1,168 @@
+import { StyleSheet } from 'react-native';
+
+export const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#eef4ea',
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#eef4ea',
+  },
+  contentContainer: {
+    paddingHorizontal: 20,
+    paddingTop: 18,
+    paddingBottom: 32,
+  },
+  heroCard: {
+    borderRadius: 24,
+    padding: 24,
+    backgroundColor: '#ffffff',
+    shadowColor: '#163020',
+    shadowOpacity: 0.08,
+    shadowRadius: 20,
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    elevation: 4,
+    marginBottom: 18,
+  },
+  eyebrow: {
+    marginBottom: 8,
+    color: '#4d7c0f',
+    fontSize: 12,
+    fontWeight: '700',
+    textTransform: 'uppercase',
+    letterSpacing: 1,
+  },
+  title: {
+    color: '#162317',
+    fontSize: 30,
+    fontWeight: '800',
+  },
+  subtitle: {
+    marginTop: 8,
+    color: '#4b5f4d',
+    fontSize: 15,
+    lineHeight: 22,
+  },
+  cartBadge: {
+    marginTop: 18,
+    alignSelf: 'flex-start',
+    borderRadius: 16,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    backgroundColor: '#d9f99d',
+  },
+  cartLabel: {
+    color: '#3f6212',
+    fontSize: 12,
+    fontWeight: '700',
+    textTransform: 'uppercase',
+    letterSpacing: 0.8,
+  },
+  cartValue: {
+    marginTop: 4,
+    color: '#1a2e05',
+    fontSize: 22,
+    fontWeight: '800',
+  },
+  searchInput: {
+    borderWidth: 1,
+    borderColor: '#d6e2cf',
+    borderRadius: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    backgroundColor: '#ffffff',
+    color: '#162317',
+    fontSize: 16,
+  },
+  categoryRow: {
+    gap: 10,
+    paddingVertical: 16,
+    paddingRight: 8,
+  },
+  categoryChip: {
+    borderRadius: 999,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    backgroundColor: '#ffffff',
+  },
+  categoryChipActive: {
+    backgroundColor: '#355e3b',
+  },
+  categoryText: {
+    color: '#36503a',
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  categoryTextActive: {
+    color: '#f4f8ef',
+  },
+  sectionHeader: {
+    marginBottom: 14,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  sectionTitle: {
+    color: '#162317',
+    fontSize: 18,
+    fontWeight: '700',
+  },
+  sectionMeta: {
+    color: '#5b6d5d',
+    fontSize: 13,
+    fontWeight: '600',
+  },
+  gridRow: {
+    justifyContent: 'space-between',
+    marginBottom: 14,
+  },
+  foodCard: {
+    width: '48%',
+    borderRadius: 20,
+    padding: 12,
+    backgroundColor: '#ffffff',
+    shadowColor: '#163020',
+    shadowOpacity: 0.06,
+    shadowRadius: 18,
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    elevation: 3,
+  },
+  foodImage: {
+    width: '100%',
+    height: 116,
+    borderRadius: 16,
+    marginBottom: 12,
+    backgroundColor: '#d8e4d5',
+  },
+  foodName: {
+    color: '#18251a',
+    fontSize: 16,
+    fontWeight: '700',
+    lineHeight: 22,
+  },
+  foodPrice: {
+    marginTop: 6,
+    marginBottom: 12,
+    color: '#5a6b5c',
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  addButton: {
+    borderRadius: 14,
+    paddingVertical: 12,
+    alignItems: 'center',
+    backgroundColor: '#d97706',
+  },
+  addButtonText: {
+    color: '#fffdf8',
+    fontSize: 14,
+    fontWeight: '700',
+  },
+});

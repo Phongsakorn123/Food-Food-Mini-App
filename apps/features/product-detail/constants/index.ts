@@ -1,0 +1,1 @@
+export const PRODUCT_DETAIL_MIN_QUANTITY = 1;
