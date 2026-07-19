@@ -1,6 +1,6 @@
 export const th = {
 	home: {
-		addToCartButton: 'เพิ่มลงตะกร้า',
+		view: 'view',
 		clearButton: 'ล้าง',
 		emptyText: 'ไม่พบรายการ',
 		itemsSuffix: 'รายการ',

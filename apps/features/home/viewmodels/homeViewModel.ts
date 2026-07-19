@@ -11,7 +11,7 @@ import { addToCart as addToCartAction, selectCartCount } from '../store';
 import { FOOD_ITEMS } from '../mocks/foods';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 
-export function useHomeViewModel() {
+export function homeViewModel() {
   const navigation = useNavigation<HomeModuleNavigationProp>();
   const homeLanguageMap = useMemo<Record<LanguageCode, typeof homeEn>>(
     () => ({
@@ -42,7 +42,7 @@ export function useHomeViewModel() {
   );
   const { languageCode } = useLanguage();
   const {
-    addToCartButton,
+    view,
     clearButton,
     emptyText,
     itemsSuffix,
@@ -89,7 +89,7 @@ export function useHomeViewModel() {
 
   return {
     addToCart,
-    addToCartButton,
+    view,
     cartCount,
     categories: HOME_CATEGORIES,
     clearButton,

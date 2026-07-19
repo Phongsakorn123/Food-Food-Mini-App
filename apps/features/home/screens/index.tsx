@@ -12,12 +12,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { FloatingCartButton } from '../../cart/components/screen/floatingButton';
 import { styles } from './styles';
-import { useHomeViewModel } from '../viewmodels/useHomeViewModel';
+import { homeViewModel } from '../viewmodels/homeViewModel';
 
 export function HomeModule() {
   const {
-    addToCart,
-    addToCartButton,
+    view,
     cartCount,
     categories,
     clearButton,
@@ -32,7 +31,7 @@ export function HomeModule() {
     selectedCategory,
     setSearchQuery,
     setSelectedCategory,
-  } = useHomeViewModel();
+  } = homeViewModel();
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -119,10 +118,11 @@ export function HomeModule() {
                 <Text style={styles.foodPrice}>฿{item.price}</Text>
               </Pressable>
               <Pressable
-                onPress={() => addToCart(item.id)}
-                style={styles.addButton}
+                onPress={() => navigateToProductDetail(item.id)}
                 testID={index === 0 ? 'add-to-cart-first' : `add-to-cart-${item.id}`}>
-                <Text style={styles.addButtonText}>{addToCartButton}</Text>
+                <View style={styles.addButton}>
+                  <Text style={styles.addButtonText}>{view}</Text>
+                </View>
               </Pressable>
             </View>
           )}

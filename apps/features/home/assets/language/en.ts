@@ -1,6 +1,6 @@
 export const en = {
 	home: {
-		addToCartButton: 'Add to Cart',
+		view: 'view',
 		clearButton: 'Clear',
 		emptyText: 'no item',
 		itemsSuffix: 'items',
