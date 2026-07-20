@@ -1,26 +1,49 @@
 import { createOrderId } from '../utils/order';
+import {
+	buildCartApiUrl,
+	cartApiService,
+} from './base';
 import type {
 	CheckoutServiceInput,
 	CheckoutServiceOutput,
 } from '../data/services/impl/ICheckoutService';
-
-type CartApiService = {
-	post<TResponse>(endpoint: string, payload: CheckoutServiceInput): Promise<TResponse>;
-};
-
-const cartApiService: CartApiService = {
-	async post<TResponse>(
-		_endpoint: string,
-		payload: CheckoutServiceInput,
-	): Promise<TResponse> {
-		return {
-			orderId: createOrderId(payload.nextOrderNumber, payload.orderIdPrefix),
-		} as TResponse;
-	},
-};
+import type {
+	CheckoutApiBody,
+	CheckoutApiHeaders,
+	CheckoutApiResponse,
+} from './models/checkoutApiModel';
 
 export async function checkoutApi(
 	input: CheckoutServiceInput,
 ): Promise<CheckoutServiceOutput> {
-	return cartApiService.post<CheckoutServiceOutput>('/checkout', input);
+	const mockHeaders: CheckoutApiHeaders = {
+		'Content-Type': 'application/json',
+		'x-feature-name': 'cart-checkout',
+		'x-mock-platform': 'react-native',
+	};
+	const mockBody: CheckoutApiBody = {
+		nextOrderNumber: input.nextOrderNumber,
+		orderIdPrefix: input.orderIdPrefix,
+		orderDetails: input.orderDetails,
+	};
+
+	try {
+		const response = await cartApiService.post<
+			CheckoutApiResponse,
+			CheckoutApiBody,
+			CheckoutApiHeaders
+		>(
+			buildCartApiUrl('/checkout'),
+			mockBody,
+			mockHeaders,
+		);
+
+		return {
+			orderId:
+				response.orderId ??
+				createOrderId(input.nextOrderNumber, input.orderIdPrefix),
+		};
+	} catch (error) {
+		throw error;
+	}
 }

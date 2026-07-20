@@ -36,7 +36,7 @@ export function HomeModule() {
   } = homeViewModel();
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={styles.safeArea} edges={['top']}>
       <View style={styles.container}>
         <View style={styles.topActionRow}>
           <Pressable
@@ -45,24 +45,6 @@ export function HomeModule() {
             style={styles.logoutButton}>
             <Text style={styles.logoutButtonText}>{logoutButton}</Text>
           </Pressable>
-        </View>
-
-        <View style={styles.searchRow}>
-          <TextInput
-            onChangeText={setSearchQuery}
-            placeholder={searchPlaceholder}
-            placeholderTextColor="#6b7280"
-            style={styles.searchInput}
-            value={searchQuery}
-          />
-          {searchQuery.length > 0 ? (
-            <Pressable
-              accessibilityRole="button"
-              onPress={clearSearchQuery}
-              style={styles.clearSearchButton}>
-              <Text style={styles.clearSearchButtonText}>{clearButton}</Text>
-            </Pressable>
-          ) : null}
         </View>
 
         <ScrollView
@@ -93,8 +75,26 @@ export function HomeModule() {
           })}
         </ScrollView>
 
+        <View style={styles.searchRow}>
+          <TextInput
+            onChangeText={setSearchQuery}
+            placeholder={searchPlaceholder}
+            placeholderTextColor="#6b7280"
+            style={styles.searchInput}
+            value={searchQuery}
+          />
+          {searchQuery.length > 0 ? (
+            <Pressable
+              accessibilityRole="button"
+              onPress={clearSearchQuery}
+              style={styles.clearSearchButton}>
+              <Text style={styles.clearSearchButtonText}>{clearButton}</Text>
+            </Pressable>
+          ) : null}
+        </View>
+
         <FlatList
-          contentContainerStyle={styles.contentContainer}
+          contentContainerStyle={styles.listContentContainer}
           data={filteredFoods}
           keyExtractor={item => item.id}
           numColumns={2}

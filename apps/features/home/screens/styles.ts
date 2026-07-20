@@ -32,6 +32,10 @@ export const styles = StyleSheet.create({
     paddingTop: 18,
     paddingBottom: 32,
   },
+  listContentContainer: {
+    paddingTop: 18,
+    paddingBottom: 74,
+  },
   heroCard: {
     borderRadius: 24,
     padding: 24,
