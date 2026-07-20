@@ -60,7 +60,6 @@ export function AuthModule({ navigation }: AuthModuleProps) {
               placeholder={usernamePlaceholder}
               placeholderTextColor="#6b7280"
               style={styles.input}
-              testID="login-email-input"
               value={username}
             />
             <TextInput
@@ -69,15 +68,13 @@ export function AuthModule({ navigation }: AuthModuleProps) {
               placeholderTextColor="#6b7280"
               secureTextEntry
               style={styles.input}
-              testID="login-password-input"
               value={password}
             />
             <Pressable
               accessibilityRole="button"
               disabled={!isLoginEnabled}
               onPress={handleLogin}
-              style={[styles.button, !isLoginEnabled && styles.buttonDisabled]}
-              testID="login-button">
+              style={[styles.button, !isLoginEnabled && styles.buttonDisabled]}>
               <Text style={styles.buttonText}>{loginButton}</Text>
             </Pressable>
           </View>

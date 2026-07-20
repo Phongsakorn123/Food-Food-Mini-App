@@ -21,5 +21,5 @@ export function EntryScreen({ navigation }: EntryScreenProps) {
     });
   }, [accessToken, navigation]);
 
-  return <View testID="entry-screen" />;
+  return <View />;
 }

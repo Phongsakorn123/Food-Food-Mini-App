@@ -33,8 +33,7 @@ export function ProductDetailModule() {
         <ScrollView contentContainerStyle={styles.contentContainer}>
           <Pressable
             onPress={handleGoBack}
-            style={styles.backButton}
-            testID="detail-back-button">
+            style={styles.backButton}>
             <Text style={styles.backButtonText}>{backToHomeText}</Text>
           </Pressable>
 
@@ -42,7 +41,7 @@ export function ProductDetailModule() {
 
           <View style={styles.card}>
             <Text style={styles.category}>{food.category}</Text>
-            <Text style={styles.title} testID="detail-title">{food.name}</Text>
+            <Text style={styles.title}>{food.name}</Text>
             <Text style={styles.description}>{food.description}</Text>
             <Text style={styles.price}>฿{food.price}</Text>
 
@@ -51,29 +50,26 @@ export function ProductDetailModule() {
               <View style={styles.quantityRow}>
                 <Pressable
                   onPress={decreaseQuantity}
-                  style={styles.quantityButton}
-                  testID="detail-decrease-button">
+                  style={styles.quantityButton}>
                   <Text style={styles.quantityButtonText}>{decreaseText}</Text>
                 </Pressable>
-                <Text style={styles.quantityValue} testID="detail-quantity-value">
+                <Text style={styles.quantityValue}>
                   {quantity}
                 </Text>
                 <Pressable
                   onPress={increaseQuantity}
-                  style={styles.quantityButton}
-                  testID="detail-increase-button">
+                  style={styles.quantityButton}>
                   <Text style={styles.quantityButtonText}>{increaseText}</Text>
                 </Pressable>
               </View>
-              <Text style={styles.totalPrice} testID="detail-total-price">
+              <Text style={styles.totalPrice}>
                 {totalPrefixText} ฿{totalPrice}
               </Text>
             </View>
 
             <Pressable
               onPress={handleAddToCartAndBack}
-              style={styles.addButton}
-              testID="detail-add-to-cart-button">
+              style={styles.addButton}>
               <Text style={styles.addButtonText}>{addToCartText}</Text>
             </Pressable>
           </View>

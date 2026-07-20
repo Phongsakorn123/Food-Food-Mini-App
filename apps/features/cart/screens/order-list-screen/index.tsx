@@ -24,7 +24,7 @@ export function OrderListModule() {
         <Text style={styles.subtitle}>{subtitle}</Text>
 
         {orderCards.length === 0 ? (
-          <Pressable style={styles.emptyCard} testID="orders-empty-state">
+          <Pressable style={styles.emptyCard}>
             <Text style={styles.emptyText}>{emptyText}</Text>
           </Pressable>
         ) : (
@@ -32,10 +32,9 @@ export function OrderListModule() {
             <Pressable
               key={order.id}
               onPress={() => handleOpenOrder(order.id)}
-              style={styles.orderCard}
-              testID={`order-item-${order.id}`}>
+              style={styles.orderCard}>
               <Text style={styles.orderTitle}>{orderIdLabel}</Text>
-              <Text style={styles.orderIdValue} testID={`order-id-${order.id}`}>
+              <Text style={styles.orderIdValue}>
                 {order.id}
               </Text>
               <Text style={styles.orderMeta}>{`${totalItemsPrefix} ${order.totalItems} ${totalItemsSuffix}`.trim()}</Text>

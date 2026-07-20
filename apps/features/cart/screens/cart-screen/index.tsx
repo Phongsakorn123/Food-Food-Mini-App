@@ -1,18 +1,10 @@
-import React, { useEffect, useRef } from 'react';
-import {
-  Animated,
-  Easing,
-  Pressable,
-  ScrollView,
-  Text,
-  View,
-} from 'react-native';
+import React from 'react';
+import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { cartViewModel } from '../../viewmodels/cartViewModel';
 import { styles } from './styles';
 
 export function CartModule() {
-  const spinValue = useRef(new Animated.Value(0)).current;
   const {
     backButton,
     cartTitle,
@@ -42,42 +34,12 @@ export function CartModule() {
   } =
     cartViewModel();
 
-  useEffect(() => {
-    if (!isCheckoutLoading) {
-      spinValue.stopAnimation();
-      spinValue.setValue(0);
-
-      return;
-    }
-
-    const spinnerAnimation = Animated.loop(
-      Animated.timing(spinValue, {
-        toValue: 1,
-        duration: 800,
-        easing: Easing.linear,
-        useNativeDriver: true,
-      }),
-    );
-
-    spinnerAnimation.start();
-
-    return () => {
-      spinnerAnimation.stop();
-    };
-  }, [isCheckoutLoading, spinValue]);
-
-  const spin = spinValue.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['0deg', '360deg'],
-  });
-
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <Pressable
           onPress={handleGoBack}
-          style={styles.backButton}
-          testID="cart-back-button">
+          style={styles.backButton}>
           <Text style={styles.backButtonText}>{backButton}</Text>
         </Pressable>
 
@@ -91,7 +53,7 @@ export function CartModule() {
         {isOrderDetailMode && selectedOrderId ? (
           <View>
             <Text style={styles.orderIdLabel}>{orderIdLabel}</Text>
-            <Text style={styles.orderIdValue} testID="cart-order-id-value">
+            <Text style={styles.orderIdValue}>
               {selectedOrderId}
             </Text>
           </View>
@@ -99,7 +61,7 @@ export function CartModule() {
 
         {items.length === 0 ? (
           <View style={styles.emptyCard}>
-            <Text style={styles.emptyText} testID="cart-empty-text">
+            <Text style={styles.emptyText}>
               {emptyText}
             </Text>
           </View>
@@ -113,10 +75,7 @@ export function CartModule() {
                   <Pressable
                     onPress={() => removeItem(item.id)}
                     style={styles.removeButton}
-                    disabled={isOrderDetailMode}
-                    testID={
-                      index === 0 ? 'cart-remove-first' : `cart-remove-${item.id}`
-                    }>
+                    disabled={isOrderDetailMode}>
                     <Text style={styles.removeButtonText}>🗑️</Text>
                   </Pressable>
                 </View>
@@ -127,19 +86,11 @@ export function CartModule() {
                   <Pressable
                     onPress={() => decreaseItem(item.id)}
                     style={styles.quantityButton}
-                    disabled={isOrderDetailMode}
-                    testID={
-                      index === 0
-                        ? 'cart-decrease-first'
-                        : `cart-decrease-${item.id}`
-                    }>
+                    disabled={isOrderDetailMode}>
                     <Text style={styles.quantityButtonText}>{quantityDecrease}</Text>
                   </Pressable>
                   <Text
-                    style={styles.quantityValue}
-                    testID={
-                      index === 0 ? 'cart-quantity-first' : `cart-quantity-${item.id}`
-                    }>
+                    style={styles.quantityValue}>
                     {item.quantity}
                   </Text>
                   <Pressable
@@ -161,7 +112,7 @@ export function CartModule() {
           <Text style={styles.summaryLabel}>{deliveryFeeLabel}</Text>
           <Text style={styles.summaryValue}>฿{deliveryFee}</Text>
           <Text style={styles.summaryLabel}>{grandTotalLabel}</Text>
-          <Text style={styles.summaryValue} testID="cart-grand-total">
+          <Text style={styles.summaryValue}>
             ฿{grandTotalWithFee}
           </Text>
         </View>
@@ -170,28 +121,13 @@ export function CartModule() {
           <Pressable
             onPress={handleCheckout}
             style={styles.checkoutButton}
-            disabled={isCheckoutLoading}
-            testID="cart-success-button">
+            disabled={isCheckoutLoading}>
             <Text style={styles.checkoutButtonText}>
               {isCheckoutLoading ? `${checkoutButton}...` : checkoutButton}
             </Text>
           </Pressable>
         ) : null}
       </ScrollView>
-
-      {isCheckoutLoading ? (
-        <View style={styles.loadingOverlay} testID="cart-checkout-loading-overlay">
-          <Animated.View
-            style={[
-              styles.loadingSpinner,
-              {
-                transform: [{ rotate: spin }],
-              },
-            ]}
-          />
-          <Text style={styles.loadingText}>{checkoutButton}...</Text>
-        </View>
-      ) : null}
     </SafeAreaView>
   );
 }

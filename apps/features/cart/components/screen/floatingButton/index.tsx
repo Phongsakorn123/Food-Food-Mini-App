@@ -14,10 +14,9 @@ export function FloatingCartButton() {
       style={[
         styles.button,
         getFloatingButtonPositionStyle(insets),
-      ]}
-      testID="floating-cart-button">
+      ]}>
       <Text style={styles.buttonText}>🛒</Text>
-      <View style={styles.badge} testID="floating-cart-badge">
+      <View style={styles.badge}>
         <Text style={styles.badgeText}>{cartCount}</Text>
       </View>
     </Pressable>

@@ -28,8 +28,7 @@ export function LanguageToggle() {
 					setLanguageCode(nextLanguageCode);
 				})();
 			}}
-			style={styles.button}
-			testID="language-toggle-button">
+			style={styles.button}>
 			{languageOptions.map(option => {
 				const isActive = option.code === languageCode;
 

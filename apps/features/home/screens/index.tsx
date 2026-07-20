@@ -42,8 +42,7 @@ export function HomeModule() {
           <Pressable
             accessibilityRole="button"
             onPress={handleLogout}
-            style={styles.logoutButton}
-            testID="home-logout-button">
+            style={styles.logoutButton}>
             <Text style={styles.logoutButtonText}>{logoutButton}</Text>
           </Pressable>
         </View>
@@ -54,15 +53,13 @@ export function HomeModule() {
             placeholder={searchPlaceholder}
             placeholderTextColor="#6b7280"
             style={styles.searchInput}
-            testID="home-search-input"
             value={searchQuery}
           />
           {searchQuery.length > 0 ? (
             <Pressable
               accessibilityRole="button"
               onPress={clearSearchQuery}
-              style={styles.clearSearchButton}
-              testID="home-clear-search-button">
+              style={styles.clearSearchButton}>
               <Text style={styles.clearSearchButtonText}>{clearButton}</Text>
             </Pressable>
           ) : null}
@@ -83,8 +80,7 @@ export function HomeModule() {
                 style={[
                   styles.categoryChip,
                   isSelected ? styles.categoryChipActive : null,
-                ]}
-                testID={`category-${category}`}>
+                ]}>
                 <Text
                   style={[
                     styles.categoryText,
@@ -105,7 +101,7 @@ export function HomeModule() {
           columnWrapperStyle={styles.gridRow}
           ListEmptyComponent={
             <View style={styles.emptyStateContainer}>
-              <Text style={styles.emptyStateText} testID="home-empty-text">
+              <Text style={styles.emptyStateText}>
                 {emptyText}
               </Text>
             </View>
@@ -114,7 +110,7 @@ export function HomeModule() {
             <View>
               <View style={styles.sectionHeader}>
                 <Text style={styles.sectionTitle}>{sectionTitle}</Text>
-                <Text style={styles.sectionMeta} testID="results-count">
+                <Text style={styles.sectionMeta}>
                   {filteredFoods.length} {itemsSuffix}
                 </Text>
               </View>
@@ -124,14 +120,13 @@ export function HomeModule() {
             <View style={styles.foodCard}>
               <Pressable
                 onPress={() => navigateToProductDetail(item.id)}
-                testID={index === 0 ? 'home-food-card-first' : `home-food-card-${item.id}`}>
+                accessibilityRole="button">
                 <Image source={{ uri: item.imageUrl }} style={styles.foodImage} />
                 <Text style={styles.foodName}>{item.name}</Text>
                 <Text style={styles.foodPrice}>฿{item.price}</Text>
               </Pressable>
               <Pressable
-                onPress={() => navigateToProductDetail(item.id)}
-                testID={index === 0 ? 'add-to-cart-first' : `add-to-cart-${item.id}`}>
+                onPress={() => navigateToProductDetail(item.id)}>
                 <View style={styles.addButton}>
                   <Text style={styles.addButtonText}>{view}</Text>
                 </View>
